@@ -10,7 +10,7 @@ public class MySpringDispatcherServletInitializer extends AbstractAnnotationConf
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{RootConfiguration.class};
     }
 
     @Override
