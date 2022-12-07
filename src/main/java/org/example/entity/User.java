@@ -5,15 +5,17 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
+    private String accountType;
     private int age;
     private String email;
     private String login;
     private String password;
 
-    public User(int id, String firstName, String lastName, int age, String email, String login, String password) {
+    public User(int id, String firstName, String lastName, String accountType, int age, String email, String login, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.accountType = accountType;
         this.age = age;
         this.email = email;
         this.login = login;
@@ -44,6 +46,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     public int getAge() {

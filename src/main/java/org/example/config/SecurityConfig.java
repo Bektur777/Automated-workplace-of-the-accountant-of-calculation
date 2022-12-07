@@ -13,7 +13,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("bektur").password("{noop}1234").roles("ADMIN");
+                .withUser("worker").password("{noop}worker").roles("WORKER")
+                .and()
+                .withUser("hr").password("{noop}hr").roles("HR")
+                .and()
+                .withUser("admin").password("{noop}admin").roles("ADMIN");
     }
 
     @Override
@@ -21,9 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin").hasAnyRole("ADMIN")
-                .antMatchers("/manager").hasAnyRole("MANAGER")
+                .antMatchers("/hr").hasAnyRole("HR")
                 .antMatchers("/worker").hasAnyRole("WORKER")
                 .antMatchers("/").permitAll()
+                .antMatchers("/register").permitAll()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
@@ -31,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")    ;
+                .deleteCookies("JSESSIONID");
     }
 
 }

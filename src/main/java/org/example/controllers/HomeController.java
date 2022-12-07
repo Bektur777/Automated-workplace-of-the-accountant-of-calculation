@@ -1,7 +1,10 @@
 package org.example.controllers;
 
+import org.example.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -11,9 +14,9 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/manager")
-    public String manager() {
-        return "manager/manager_page";
+    @GetMapping("/hr")
+    public String hr() {
+        return "hr/hr_page";
     }
 
     @GetMapping("/worker")
@@ -33,7 +36,18 @@ public class HomeController {
 
     @GetMapping("/logout")
     public String logout() {
-        return "authentication/logout_page";
+        return "redirect:/home";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "authentication/register";
+    }
+
+    @PostMapping
+    public String reg(@ModelAttribute("user") User user) {
+
+        return "redirect:/home";
     }
 
 }
