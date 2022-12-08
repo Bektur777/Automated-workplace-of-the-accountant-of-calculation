@@ -1,35 +1,48 @@
 package org.example.entity;
 
 public class User {
-
-    private int id;
+    private String username;
+    private String password;
+    private Boolean enabled = false;
     private String firstName;
     private String lastName;
-    private String accountType;
-    private int age;
     private String email;
-    private String login;
-    private String password;
+    private int age;
 
-    public User(int id, String firstName, String lastName, String accountType, int age, String email, String login, String password) {
-        this.id = id;
+    public User(String username, String password, Boolean enabled, String firstName, String lastName, String email, int age) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accountType = accountType;
-        this.age = age;
         this.email = email;
-        this.login = login;
+        this.age = age;
+    }
+
+    User() {}
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public User() {}
-
-    public int getId() {
-        return id;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getFirstName() {
@@ -48,22 +61,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -72,20 +69,12 @@ public class User {
         this.email = email;
     }
 
-    public String getLogin() {
-        return login;
+    public int getAge() {
+        return age;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAge(int age) {
+        this.age = age;
     }
 
 }
