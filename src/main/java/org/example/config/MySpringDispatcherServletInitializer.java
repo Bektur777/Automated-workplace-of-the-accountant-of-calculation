@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.security.RootConfig;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -10,7 +11,7 @@ public class MySpringDispatcherServletInitializer extends AbstractAnnotationConf
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{RootConfiguration.class};
+        return new Class[]{RootConfig.class};
     }
 
     @Override

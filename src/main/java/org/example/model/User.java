@@ -1,6 +1,7 @@
-package org.example.entity;
+package org.example.model;
 
 public class User {
+    private int id;
     private String username;
     private String password;
     private Boolean enabled = false;
@@ -8,8 +9,12 @@ public class User {
     private String lastName;
     private String email;
     private int age;
+    private String role;
 
-    public User(String username, String password, Boolean enabled, String firstName, String lastName, String email, int age) {
+    public User() {}
+
+    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, String role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -17,9 +22,16 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+        this.role = role;
     }
 
-    User() {}
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -77,4 +89,11 @@ public class User {
         this.age = age;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

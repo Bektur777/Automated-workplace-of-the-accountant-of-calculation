@@ -1,13 +1,28 @@
 package org.example.controllers;
 
-import org.example.entity.User;
+import org.example.dao.AdminDAO;
+import org.example.model.User;
+import org.example.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class HomeController {
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public HomeController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping()
     public String home() {
@@ -36,18 +51,19 @@ public class HomeController {
 
     @GetMapping("/logout")
     public String logout() {
-        return "redirect:/home";
+        return "redirect:/";
     }
 
-    @GetMapping("/register")
-    public String register() {
+    @GetMapping("/signup")
+    public String registration(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("user", user);
         return "authentication/register";
     }
 
-    @PostMapping
-    public String reg(@ModelAttribute("user") User user) {
-
-        return "redirect:/home";
+    @PostMapping("/user/register")
+    public String reg(@ModelAttribute("user") @Valid User user) {
+        userRepository.addUser(user);
+        return "redirect:/login";
     }
 
 }

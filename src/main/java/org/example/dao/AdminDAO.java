@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.entity.User;
+import org.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +13,7 @@ public class AdminDAO {
 
     private JdbcTemplate jdbcTemplate;
 
+
     @Autowired
     public AdminDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -20,6 +21,13 @@ public class AdminDAO {
 
     public List<User> getUsers() {
         return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public void create(User user) {
+        jdbcTemplate.update("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                user.getUsername(), user.getPassword(), user.getEnabled(), user.getFirstName(),
+                user.getLastName(), user.getEmail(), user.getAge(), user.getRole()
+                );
     }
 
 }

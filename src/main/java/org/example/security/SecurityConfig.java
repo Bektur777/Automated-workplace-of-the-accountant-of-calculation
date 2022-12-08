@@ -1,5 +1,6 @@
-package org.example.config;
+package org.example.security;
 
+import org.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,12 +12,16 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private UserDetail userDetail;
+
     @Autowired
-    private DataSource dataSource;
+    public SecurityConfig(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.userDetailsService(userDetail);
     }
 
 //    @Autowired

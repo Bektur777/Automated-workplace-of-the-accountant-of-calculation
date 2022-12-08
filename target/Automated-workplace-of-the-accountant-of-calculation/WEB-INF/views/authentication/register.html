@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Account Register</title>
@@ -7,8 +7,15 @@
 <body>
     <center>
         <h1>Register page</h1>
-        <form action="POST">
-
+        <form th:method="POST" th:action="@{/user/register}" th:object="${user}">
+            <input type="text" th:field="*{username}" placeholder="Enter username...">
+            <input type="text" th:field="*{password}" placeholder="Enter password...">
+            <input type="text" th:field="*{firstName}" placeholder="Enter firstname...">
+            <input type="text" th:field="*{lastName}" placeholder="Enter lastname...">
+            <input type="text" th:field="*{email}" placeholder="Enter email...">
+            <input type="text" th:field="*{age}" placeholder="Enter age...">
+            <input type="text" th:field="*{role}" placeholder="Enter role...">
+            <input type="submit">
         </form>
     </center>
 </body>
