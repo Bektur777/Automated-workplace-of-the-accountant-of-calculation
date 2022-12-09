@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Worker Page</title>
@@ -10,15 +10,16 @@
         <br>
         <br>
         <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>1: Просмотреть всю информацию</li>
+            <li>2: Просмотреть расчетный лист</li>
+            <li>3: Просмотреть кошелек</li>
+            <li>4: <a th:href="@{/worker/sicker_leave/{id}(id=${user.getId()})}">Ввести данные больничного листа</a></li>
             <li>5</li>
             <li>6</li>
             <li>7</li>
             <li>8</li>
         </ul>
+        <p th:text="${user}"></p>
         <a href="/logout">Exit</a>
     </center>
 </body>

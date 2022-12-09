@@ -1,6 +1,7 @@
 package org.example.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 
 public class SickerLeave {
 
@@ -80,16 +81,16 @@ public class SickerLeave {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartDate(String startDate) {
+        this.startDate = Date.valueOf(LocalDate.parse(startDate));
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndDate(String endDate) {
+        this.endDate = Date.valueOf(LocalDate.parse(endDate));
     }
 
     public String getReason() {

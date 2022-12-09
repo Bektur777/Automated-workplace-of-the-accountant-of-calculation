@@ -23,11 +23,4 @@ public class AdminDAO {
         return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
     }
 
-    public void create(User user) {
-        jdbcTemplate.update("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                user.getUsername(), user.getPassword(), user.getEnabled(), user.getFirstName(),
-                user.getLastName(), user.getEmail(), user.getAge(), user.getRole()
-                );
-    }
-
 }

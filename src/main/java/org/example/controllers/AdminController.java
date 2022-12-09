@@ -1,7 +1,6 @@
 package org.example.controllers;
 
 import org.example.dao.AdminDAO;
-import org.example.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +27,15 @@ public class AdminController {
         return "admin/users";
     }
 
-    @GetMapping("/wallet")
-    public String wallet() {
-        return "admin/wallet";
-    }
-
-    @PostMapping()
-    public ModelAndView create(@ModelAttribute("wallet") Wallet wallet) {
-        return new ModelAndView("redirect:/admin");
-    }
+//    @GetMapping("/wallet")
+//    public String wallet() {
+//        return "admin/wallet";
+//    }
+//
+//    @PostMapping()
+//    public ModelAndView create(@ModelAttribute("wallet") Wallet wallet) {
+//        return new ModelAndView("redirect:/admin");
+//    }
 
 }
 

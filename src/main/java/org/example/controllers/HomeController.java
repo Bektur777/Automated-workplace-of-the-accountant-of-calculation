@@ -1,16 +1,14 @@
 package org.example.controllers;
 
-import org.example.dao.AdminDAO;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -31,16 +29,19 @@ public class HomeController {
 
     @GetMapping("/hr")
     public String hr() {
+        userRepository.getUser();
         return "hr/hr_page";
     }
 
     @GetMapping("/worker")
-    public String worker() {
+    public String worker(Model model) {
+        model.addAttribute("user", userRepository.getUser());
         return "worker/worker_page";
     }
 
     @GetMapping("/admin")
     public String admin() {
+        userRepository.getUser();
         return "admin/admin_page";
     }
 
@@ -62,6 +63,8 @@ public class HomeController {
 
     @PostMapping("/user/register")
     public String reg(@ModelAttribute("user") @Valid User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.addUser(user);
         return "redirect:/login";
     }
