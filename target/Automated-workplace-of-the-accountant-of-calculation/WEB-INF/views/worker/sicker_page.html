@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sicker Leave Page</title>
+</head>
+<body>
+    <center>
+        <h1>My Sicker leaves</h1>
+        <br>
+        <hr>
+        <br>
+        <div th:each="sickerLeave : ${sickerLeaves}">
+            <p th:text="${sickerLeave.getFirstName()}">First name</p>
+            <p th:text="${sickerLeave.getLastName()}">Last Name</p>
+            <p th:text="${sickerLeave.getEmail()}">Email</p>
+            <p th:text="${sickerLeave.getAge()}">Age</p>
+            <p th:text="${sickerLeave.getStartDate()}">Start Date</p>
+            <p th:text="${sickerLeave.getEndDate()}">End Date</p>
+            <p th:text="${sickerLeave.getReason()}">Reason</p>
+            <p th:text="${sickerLeave.getHospitalName()}">Hospital name</p>
+            <p th:text="${sickerLeave.getHospitalAddress()}">Hospital address</p>
+            <p th:text="${sickerLeave.getDoctorName()}">Doctor name</p>
+            <p th:text="${sickerLeave.getRegistrationNumber()}">Doctor name</p>
+        </div>
+    </center>
+</body>
+</html>

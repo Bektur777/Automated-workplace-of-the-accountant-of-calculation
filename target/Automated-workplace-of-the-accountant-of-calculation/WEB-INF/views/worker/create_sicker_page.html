@@ -6,7 +6,7 @@
 </head>
 <body>
 <center>
-    <form th:method="POST" th:action="@{/worker/sicker_leave/{id}(id=${userId})}" th:object="${sicker}">
+    <form th:method="POST" th:action="@{/worker/create/sicker_leave/{id}(id=${userId})}" th:object="${sicker}">
         <input type="text" th:field="*{firstName}" placeholder="Enter firstname...">
         <input type="text" th:field="*{lastName}" placeholder="Enter lastname...">
         <input type="text" th:field="*{email}" placeholder="Enter email...">

@@ -4,11 +4,12 @@ import org.example.model.CurrentUser;
 import org.example.model.SickerLeave;
 
 import org.example.model.User;
-import org.example.security.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class UserRepository {
@@ -44,8 +45,9 @@ public class UserRepository {
                 new BeanPropertyRowMapper<>(User.class), currentUser.getUsername());
     }
 
-    public SickerLeave getSickerLeave() {
-        return jdbcTemplate.queryForObject("SELECT * FROM sick_leave", new BeanPropertyRowMapper<>());
+    public List<SickerLeave> getSickerLeave(int id) {
+        return jdbcTemplate.query("SELECT * FROM sick_leave WHERE userid=?",
+                new BeanPropertyRowMapper<>(SickerLeave.class), id);
     }
 
     public User getUserByUsername(String username) {

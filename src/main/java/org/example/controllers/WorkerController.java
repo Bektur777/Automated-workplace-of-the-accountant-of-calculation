@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import org.example.dao.WorkerDAO;
 import org.example.model.SickerLeave;
+import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,19 +22,25 @@ public class WorkerController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/sicker_leave/{id}")
+    @GetMapping("/create/sicker_leave/{id}")
     public String sickerLeave(@ModelAttribute("sicker") SickerLeave sickerLeave,
                               Model model, @PathVariable("id") int id) {
         model.addAttribute("sicker", sickerLeave);
         model.addAttribute("userId", id);
-        return "sicker_page";
+        return "worker/create_sicker_page";
     }
 
-    @PostMapping("/sicker_leave/{id}")
+    @PostMapping("/create/sicker_leave/{id}")
     public String createSickerLeave(@ModelAttribute("sickerLeave") SickerLeave sickerLeave,
                                     @PathVariable("id") int id) {
         userRepository.addSickerLeave(sickerLeave, id);
         return "redirect:/worker";
+    }
+
+    @GetMapping("/sicker_leave/{id}")
+    public String getUserSickerLeave(@PathVariable("id") int id, Model model) {
+        model.addAttribute("sickerLeaves", userRepository.getSickerLeave(id));
+        return "worker/sicker_page";
     }
 
 }
