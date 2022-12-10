@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.dao.WorkerDAO;
 import org.example.model.SickerLeave;
 import org.example.model.User;
+import org.example.model.Wallet;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,6 +68,12 @@ public class WorkerController {
         }
         userRepository.updateUser(user, id);
         return "redirect:/";
+    }
+
+    @GetMapping("/wallet/{id}")
+    public String getWallet(@PathVariable("id") int id, Model model) {
+        model.addAttribute("wallet", userRepository.getWalletUser(id));
+        return "wallet";
     }
 
 }

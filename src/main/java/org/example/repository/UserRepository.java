@@ -4,6 +4,7 @@ import org.example.model.CurrentUser;
 import org.example.model.SickerLeave;
 
 import org.example.model.User;
+import org.example.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,14 @@ public class UserRepository {
         jdbcTemplate.update("INSERT INTO users(username, password, enabled, firstname, lastname, email, age, role) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 user.getUsername(), user.getPassword(), false, user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getAge(), user.getRole());
+        User userWallet = jdbcTemplate.queryForObject("SELECT id FROM users WHERE username=?",
+                new BeanPropertyRowMapper<>(User.class), user.getUsername());
+        assert userWallet != null;
+        addWalletToUser(userWallet.getId());
+    }
+
+    public void addWalletToUser(int id) {
+        jdbcTemplate.update("INSERT INTO wallet(wallet, userId) VALUES(?, ?)", 0, id);
     }
 
     public void updateUser(User user, int id) {
@@ -42,6 +51,11 @@ public class UserRepository {
                 sickerLeave.getHospitalAddress(), sickerLeave.getDoctorName(), sickerLeave.getRegistrationNumber(),
                 id
         );
+    }
+
+    public Wallet getWalletUser(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM wallet WHERE userId=?",
+                new BeanPropertyRowMapper<>(Wallet.class), id);
     }
 
     public User getUser() {

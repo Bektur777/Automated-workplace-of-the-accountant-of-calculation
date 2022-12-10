@@ -13,7 +13,6 @@ public class AdminDAO {
 
     private JdbcTemplate jdbcTemplate;
 
-
     @Autowired
     public AdminDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
