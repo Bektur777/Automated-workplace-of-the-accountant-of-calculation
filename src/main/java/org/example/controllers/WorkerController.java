@@ -59,7 +59,12 @@ public class WorkerController {
     @PatchMapping("/profile/edit/{id}")
     public String updateProfile(@PathVariable("id") int id, @ModelAttribute User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+        User userInDb = userRepository.getUser();
+        System.out.println(userInDb.getPassword());
+        System.out.println(user.getPassword());
+        if (!userInDb.getPassword().equals(user.getPassword())) {
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
         userRepository.updateUser(user, id);
         return "redirect:/";
     }
