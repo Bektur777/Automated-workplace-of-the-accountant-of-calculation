@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile edit</title>
+</head>
+<body>
+  <center>
+      <h1>Edit profile</h1>
+    <form th:method="PATCH" th:action="@{/worker/profile/edit/{id}(id=${userProfile.getId()})}" th:object="${userProfile}">
+        <input type="text" th:field="*{username}" placeholder="Enter username...">
+        <input type="text" th:field="*{password}" placeholder="Enter password...">
+        <input type="text" th:field="*{firstName}" placeholder="Enter firstname...">
+        <input type="text" th:field="*{lastName}" placeholder="Enter lastname...">
+        <input type="text" th:field="*{email}" placeholder="Enter email...">
+        <input type="text" th:field="*{age}" placeholder="Enter age...">
+        <input type="submit" value="Update!">
+    </form>
+  </center>
+</body>
+</html>

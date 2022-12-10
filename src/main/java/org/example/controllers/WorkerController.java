@@ -5,6 +5,7 @@ import org.example.model.SickerLeave;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,26 @@ public class WorkerController {
     public String getUserSickerLeave(@PathVariable("id") int id, Model model) {
         model.addAttribute("sickerLeaves", userRepository.getSickerLeave(id));
         return "worker/sicker_page";
+    }
+
+    @GetMapping("/profile")
+    public String getProfile(Model model) {
+        model.addAttribute("userProfile", userRepository.getUser());
+        return "profile";
+    }
+
+    @GetMapping("/profile/edit")
+    public String editProfile(Model model) {
+        model.addAttribute("userProfile", userRepository.getUser());
+        return "profile_edit";
+    }
+
+    @PatchMapping("/profile/edit/{id}")
+    public String updateProfile(@PathVariable("id") int id, @ModelAttribute User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepository.updateUser(user, id);
+        return "redirect:/";
     }
 
 }

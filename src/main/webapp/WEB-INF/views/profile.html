@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+    <center>
+        <h1>My Profile</h1>
+        <div th:each="user : ${userProfile}">
+            <p th:text="${user.getUsername()}">Login</p>
+            <p th:text="${user.getFirstName()}">First name</p>
+            <p th:text="${user.getLastName()}">Last name</p>
+            <p th:text="${user.getEmail()}">Email</p>
+            <p th:text="${user.getAge()}">Age</p>
+            <a href="/worker/profile/edit">Change my profile</a>
+        </div>
+    </center>
+</body>
+</html>

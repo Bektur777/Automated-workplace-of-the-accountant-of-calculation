@@ -27,6 +27,13 @@ public class UserRepository {
                 user.getEmail(), user.getAge(), user.getRole());
     }
 
+    public void updateUser(User user, int id) {
+        jdbcTemplate.update("UPDATE users SET username=?, password=?, " +
+                "firstname=?, lastname=?, email=?, age=? WHERE id=?",
+                user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
+                user.getEmail(), user.getAge(), id);
+    }
+
     public void addSickerLeave(SickerLeave sickerLeave, int id) {
         jdbcTemplate.update(
                 "INSERT INTO sick_leave(firstname, lastname, email, age, startdate, enddate, reason, nameofhospital, addressofhospital, doctorname, registrationnumber, userid) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
