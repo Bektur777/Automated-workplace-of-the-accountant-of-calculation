@@ -25,7 +25,7 @@ public class UserRepository {
     public void addUser(User user) {
         jdbcTemplate.update("INSERT INTO users(username, password, enabled, firstname, lastname, email, age, role) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 user.getUsername(), user.getPassword(), false, user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getAge(), user.getRole());
+                user.getEmail(), user.getAge(), user.getRole().toLowerCase());
         User userWallet = jdbcTemplate.queryForObject("SELECT id FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), user.getUsername());
         assert userWallet != null;

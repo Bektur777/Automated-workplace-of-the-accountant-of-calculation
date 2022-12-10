@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/hr/**").hasAuthority("HR")
                 .antMatchers("/worker/**").hasAuthority("WORKER")
+                .antMatchers("/accountant/**").hasAuthority("ACCOUNTANT")
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
                 .and().csrf().disable()
