@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Sicker Page</title>
+    <link rel="stylesheet" href="/../css/components/datepicker.min.css">
+    <link rel="stylesheet" href="/../css/components/form-select.min.css">
+    <script src="/../js/components/datepicker.min.js" async></script>
+    <script src="/../js/components/form-select.min.js" async></script>
 </head>
 <body>
 <center>
@@ -11,8 +15,8 @@
         <input type="text" th:field="*{lastName}" placeholder="Enter lastname...">
         <input type="text" th:field="*{email}" placeholder="Enter email...">
         <input type="text" th:field="*{age}" placeholder="Enter age...">
-        <input type="text" th:field="*{startDate}" placeholder="Enter start of date...">
-        <input type="text" th:field="*{endDate}" placeholder="Enter end of date...">
+        <input type="text" data-uk-datepicker="{format:'YYYY.MM.DD'}" th:field="*{startDate}" placeholder="Enter start of date...">
+        <input type="text" data-uk-datepicker="{format:'YYYY.MM.DD'}" th:field="*{endDate}" placeholder="Enter end of date...">
         <input type="text" th:field="*{reason}" placeholder="Enter reason...">
         <input type="text" th:field="*{hospitalName}" placeholder="Enter name of hospital...">
         <input type="text" th:field="*{hospitalAddress}" placeholder="Enter address of hospital...">

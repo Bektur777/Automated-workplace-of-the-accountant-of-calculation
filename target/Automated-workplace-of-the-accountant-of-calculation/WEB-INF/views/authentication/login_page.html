@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <center>
-        <h1>Login Page</h1>
+    <h1>Login Page</h1>
+    <div style="display: flex; justify-content: center">
         <form action="/login" method="post">
-            <input type="text" name="username" id="username" placeholder="Username...">
-            <input type="text" name="password" id="password" placeholder="Password...">
-            <input type="submit">
+            <div class="form-group">
+                <label for="username">Login</label>
+                <input type="text" name="username" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" name="password" id="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    </center>
+    </div>
 </body>
 </html>

@@ -3,14 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>All workers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div th:each="user : ${users}">
-        <p th:text="${user.getUsername()}">Login</p>
-        <p th:text="${user.getFirstName()}">First name</p>
-        <p th:text="${user.getLastName()}">Last name</p>
-        <p th:text="${user.getEmail()}">Email</p>
-        <p th:text="${user.getAge()}">Age</p>
-    </div>
+<!--    <div th:each="user : ${users}">-->
+<!--        <p th:text="${user.getUsername()}">Login</p>-->
+<!--        <p th:text="${user.getFirstName()}">First name</p>-->
+<!--        <p th:text="${user.getLastName()}">Last name</p>-->
+<!--        <p th:text="${user.getEmail()}">Email</p>-->
+<!--        <p th:text="${user.getAge()}">Age</p>-->
+<!--    </div>-->
+
+
+<div class="container">
+    <h2>Filterable Table</h2>
+    <p>Type something in the input field to search the table for first names, last names or emails:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            <tr th:each="user : ${users}">
+                <td th:text="${user.getUsername()}">Username</td>
+                <td th:text="${user.getFirstName()}">First name</td>
+                <td th:text="${user.getLastName()}">Last name</td>
+                <td th:text="${user.getEmail()}">Email</td>
+                <td th:text="${user.getAge()}">Age</td>
+                <td><button type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</div>
 </body>
 </html>

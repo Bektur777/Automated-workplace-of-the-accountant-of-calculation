@@ -3,20 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
-    <center>
-        <h1>Register page</h1>
-        <form th:method="POST" th:action="@{/user/register}" th:object="${user}">
-            <input type="text" th:field="*{username}" placeholder="Enter username...">
-            <input type="text" th:field="*{password}" placeholder="Enter password...">
-            <input type="text" th:field="*{firstName}" placeholder="Enter firstname...">
-            <input type="text" th:field="*{lastName}" placeholder="Enter lastname...">
-            <input type="text" th:field="*{email}" placeholder="Enter email...">
-            <input type="text" th:field="*{age}" placeholder="Enter age...">
-            <input type="text" th:field="*{role}" placeholder="Enter role...">
-            <input type="submit">
-        </form>
-    </center>
+<div style="width: 1100px; margin: 0 auto;">
+    <h1 style="margin: 50px">Registration Form</h1>
+    <form th:method="POST" th:action="@{/user/register}" th:object="${user}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" th:field="*{username}" id="username" placeholder="Enter username...">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="password">Password</label>
+                <input class="form-control" type="text" th:field="*{password}" id="password" placeholder="Enter password...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">First name</label>
+            <input class="form-control" type="text" th:field="*{firstName}" id="firstname" placeholder="Enter firstname...">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last name</label>
+            <input class="form-control" type="text" th:field="*{lastName}" id="lastname" placeholder="Enter lastname...">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" th:field="*{email}" id="email" placeholder="Enter email...">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="age">Age</label>
+                <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="Enter age...">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">Role</label>
+                <input tabindex="-1" required="" style="pointer-events: none;" name="role" class="form-control" type="text" th:field="*{role}">
+                <select id="inputState" class="form-control">
+                    <option selected>admin</option>
+                    <option>worker</option>
+                    <option>hr</option>
+                    <option>accountant</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+    <script>
+        $('select#inputState').on('change', function() {
+            $('input[name="role"]').val(this.value);
+        });
+    </script>
+</div>
 </body>
 </html>

@@ -3,7 +3,6 @@ package org.example.controllers;
 import org.example.dao.WorkerDAO;
 import org.example.model.SickerLeave;
 import org.example.model.User;
-import org.example.model.Wallet;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,8 +60,6 @@ public class WorkerController {
     public String updateProfile(@PathVariable("id") int id, @ModelAttribute User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User userInDb = userRepository.getUser();
-        System.out.println(userInDb.getPassword());
-        System.out.println(user.getPassword());
         if (!userInDb.getPassword().equals(user.getPassword())) {
             user.setPassword(encoder.encode(user.getPassword()));
         }

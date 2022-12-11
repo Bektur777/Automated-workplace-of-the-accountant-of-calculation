@@ -23,4 +23,8 @@ public class HRDao {
         return jdbcTemplate.query("SELECT * FROM users WHERE role=?", new BeanPropertyRowMapper<>(User.class), role);
     }
 
+//    public User findUser() {
+//            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE ");
+//    }
+
 }
