@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.sql.Date;
+
 public class User {
     private int id;
     private String username;
@@ -9,11 +11,16 @@ public class User {
     private String lastName;
     private String email;
     private int age;
-    private String role;
+    private boolean familyStatus = false;
+    private int numberOfChildren;
+    private Date startDate;
+    private String placeOfBirth;
+    private String positionName;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, String role) {
+    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, boolean familyStatus, int numberOfChildren, Date startDate, String placeOfBirth, String positionName) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -22,7 +29,11 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.age = age;
-        this.role = role;
+        this.familyStatus = familyStatus;
+        this.numberOfChildren = numberOfChildren;
+        this.startDate = startDate;
+        this.placeOfBirth = placeOfBirth;
+        this.positionName = positionName;
     }
 
     public int getId() {
@@ -89,12 +100,44 @@ public class User {
         this.age = age;
     }
 
-    public String getRole() {
-        return role;
+    public boolean getFamilyStatus() {
+        return familyStatus;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setFamilyStatus(boolean familyStatus) {
+        this.familyStatus = familyStatus;
+    }
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(int numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
 }

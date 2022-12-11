@@ -19,8 +19,8 @@ public class HRDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<User> getUsers(String role) {
-        return jdbcTemplate.query("SELECT * FROM users WHERE role=?", new BeanPropertyRowMapper<>(User.class), role);
+    public List<User> getUsers(String positionName) {
+        return jdbcTemplate.query("SELECT * FROM users WHERE position_name=?", new BeanPropertyRowMapper<>(User.class), positionName);
     }
 
 //    public User findUser() {

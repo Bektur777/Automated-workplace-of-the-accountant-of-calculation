@@ -1,10 +1,7 @@
 package org.example.repository;
 
-import org.example.model.CurrentUser;
-import org.example.model.SickerLeave;
+import org.example.model.*;
 
-import org.example.model.User;
-import org.example.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,9 +20,11 @@ public class UserRepository {
     }
 
     public void addUser(User user) {
-        jdbcTemplate.update("INSERT INTO users(username, password, enabled, firstname, lastname, email, age, role) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO users(username, password, enabled, firstname, lastname, email, age, " +
+                        "family_status, number_of_children, place_of_birth, position_name) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 user.getUsername(), user.getPassword(), false, user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getAge(), user.getRole().toLowerCase());
+                user.getEmail(), user.getAge(), user.getFamilyStatus(), user.getNumberOfChildren(), user.getPlaceOfBirth(),
+                user.getPositionName());
         User userWallet = jdbcTemplate.queryForObject("SELECT id FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), user.getUsername());
         assert userWallet != null;
@@ -41,6 +40,7 @@ public class UserRepository {
                 "firstname=?, lastname=?, email=?, age=? WHERE id=?",
                 user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getAge(), id);
+        updateCurrentUser(user.getUsername());
     }
 
     public void addSickerLeave(SickerLeave sickerLeave, int id) {
@@ -72,9 +72,14 @@ public class UserRepository {
     }
 
     public User getUserByUsername(String username) {
-        jdbcTemplate.update("UPDATE current_user_username SET username=?", username);
+        updateCurrentUser(username);
         return jdbcTemplate.queryForObject("SELECT * FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), username);
+    }
+
+    public void updateCurrentUser(String username) {
+        jdbcTemplate.update("UPDATE current_user_username SET username=?", username);
+
     }
 
 }

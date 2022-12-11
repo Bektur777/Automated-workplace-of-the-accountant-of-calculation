@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.model.Position;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class HomeController {
     }
 
     @PostMapping("/user/register")
-    public String reg(@ModelAttribute("user") @Valid User user) {
+    public String reg(@ModelAttribute("user") @Valid User user, @ModelAttribute("position") Position position) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.addUser(user);

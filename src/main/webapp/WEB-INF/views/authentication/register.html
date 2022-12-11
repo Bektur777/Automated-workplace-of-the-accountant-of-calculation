@@ -8,7 +8,7 @@
 </head>
 <body>
 <div style="width: 1100px; margin: 0 auto;">
-    <h1 style="margin: 50px">Registration Form</h1>
+    <h1 style="margin: 50px; text-align: center">Registration Form</h1>
     <form th:method="POST" th:action="@{/user/register}" th:object="${user}">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -20,13 +20,15 @@
                 <input class="form-control" type="text" th:field="*{password}" id="password" placeholder="Enter password...">
             </div>
         </div>
-        <div class="form-group">
-            <label for="firstname">First name</label>
-            <input class="form-control" type="text" th:field="*{firstName}" id="firstname" placeholder="Enter firstname...">
-        </div>
-        <div class="form-group">
-            <label for="lastname">Last name</label>
-            <input class="form-control" type="text" th:field="*{lastName}" id="lastname" placeholder="Enter lastname...">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstname">First name</label>
+                <input class="form-control" type="text" th:field="*{firstName}" id="firstname" placeholder="Enter firstname...">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last name</label>
+                <input class="form-control" type="text" th:field="*{lastName}" id="lastname" placeholder="Enter lastname...">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -38,23 +40,25 @@
                 <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="Enter age...">
             </div>
             <div class="form-group col-md-4">
-                <label for="inputState">Role</label>
-                <input tabindex="-1" required="" style="pointer-events: none;" name="role" class="form-control" type="text" th:field="*{role}">
-                <select id="inputState" class="form-control">
-                    <option selected>admin</option>
-                    <option>worker</option>
-                    <option>hr</option>
-                    <option>accountant</option>
-                </select>
+                <input class="form-control" type="text" th:field="*{positionName}">
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="kids">Number of children</label>
+                <input class="form-control" type="text" th:field="*{numberOfChildren}" id="kids" placeholder="Enter number of children...">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="birth">Place of birth</label>
+                <input class="form-control" type="text" th:field="*{placeOfBirth}" id="birth" placeholder="Enter place of birth...">
+            </div>
+            <div class="form-group col-md-4">
+                <input class="form-control" type="text" th:field="*{familyStatus}">
+            </div>
+        </div>
+        <br>
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
-    <script>
-        $('select#inputState').on('change', function() {
-            $('input[name="role"]').val(this.value);
-        });
-    </script>
 </div>
 </body>
 </html>

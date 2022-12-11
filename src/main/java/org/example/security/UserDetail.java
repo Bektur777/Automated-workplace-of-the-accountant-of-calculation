@@ -1,8 +1,11 @@
 package org.example.security;
 
+import org.example.model.Position;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +20,12 @@ import java.util.Collections;
 public class UserDetail implements UserDetailsService {
 
     private UserRepository userRepository;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserDetail(UserRepository userRepository) {
+    public UserDetail(UserRepository userRepository, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -28,12 +33,12 @@ public class UserDetail implements UserDetailsService {
         User user = userRepository.getUserByUsername(username);
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), user.getEnabled(), true,
-                true, true, getAuthority(user.getRole().toUpperCase())
+                true, true, getAuthority(user.getPositionName())
         );
     }
 
-    private Collection<? extends GrantedAuthority> getAuthority(String role) {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+    private Collection<? extends GrantedAuthority> getAuthority(String positionName) {
+        return Collections.singletonList(new SimpleGrantedAuthority(positionName.toUpperCase()));
     }
 
 }
