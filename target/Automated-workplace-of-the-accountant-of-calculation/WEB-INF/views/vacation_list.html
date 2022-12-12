@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Vacation list</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Number phone</th>
+      <th>Statement</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Agreement</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    <tr th:each="res : ${vacation}">
+      <td th:text="${res.getNumberPhone()}">Number phone</td>
+      <td th:text="${res.getStatement()}">Statement</td>
+      <td th:text="${res.getStartDate()}">Start date</td>
+      <td th:text="${res.getEndDate()}">End date</td>
+      <td th:text="${res.getAgreement()}">Agreement</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

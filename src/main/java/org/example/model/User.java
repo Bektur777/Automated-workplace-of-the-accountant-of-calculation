@@ -3,6 +3,7 @@ package org.example.model;
 import java.sql.Date;
 
 public class User {
+
     private int id;
     private String username;
     private String password;
@@ -13,14 +14,14 @@ public class User {
     private int age;
     private boolean familyStatus = false;
     private int numberOfChildren;
-    private Date startDate;
+    private Date startOfDate;
     private String placeOfBirth;
     private String positionName;
 
     public User() {
     }
 
-    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, boolean familyStatus, int numberOfChildren, Date startDate, String placeOfBirth, String positionName) {
+    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, boolean familyStatus, int numberOfChildren, Date startOfDate, String placeOfBirth, String positionName) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -31,7 +32,7 @@ public class User {
         this.age = age;
         this.familyStatus = familyStatus;
         this.numberOfChildren = numberOfChildren;
-        this.startDate = startDate;
+        this.startOfDate = startOfDate;
         this.placeOfBirth = placeOfBirth;
         this.positionName = positionName;
     }
@@ -116,12 +117,12 @@ public class User {
         this.numberOfChildren = numberOfChildren;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartOfDate() {
+        return startOfDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartOfDate(Date startOfDate) {
+        this.startOfDate = startOfDate;
     }
 
     public String getPlaceOfBirth() {
@@ -140,4 +141,22 @@ public class User {
         this.positionName = positionName;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", familyStatus=" + familyStatus +
+                ", numberOfChildren=" + numberOfChildren +
+                ", startDate=" + startOfDate +
+                ", placeOfBirth='" + placeOfBirth + '\'' +
+                ", positionName='" + positionName + '\'' +
+                '}';
+    }
 }

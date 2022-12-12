@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Repository
@@ -21,9 +23,9 @@ public class UserRepository {
 
     public void addUser(User user) {
         jdbcTemplate.update("INSERT INTO users(username, password, enabled, firstname, lastname, email, age, " +
-                        "family_status, number_of_children, place_of_birth, position_name) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "family_status, number_of_children, start_of_date, place_of_birth, position_name) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 user.getUsername(), user.getPassword(), false, user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getAge(), user.getFamilyStatus(), user.getNumberOfChildren(), user.getPlaceOfBirth(),
+                user.getEmail(), user.getAge(), user.getFamilyStatus(), user.getNumberOfChildren(), LocalDate.now(), user.getPlaceOfBirth(),
                 user.getPositionName());
         User userWallet = jdbcTemplate.queryForObject("SELECT id FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), user.getUsername());
@@ -73,6 +75,7 @@ public class UserRepository {
 
     public User getUserByUsername(String username) {
         updateCurrentUser(username);
+        checkVacationList();
         return jdbcTemplate.queryForObject("SELECT * FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), username);
     }
@@ -80,6 +83,33 @@ public class UserRepository {
     public void updateCurrentUser(String username) {
         jdbcTemplate.update("UPDATE current_user_username SET username=?", username);
 
+    }
+
+    public void checkVacationList() {
+        User user = getUser();
+        LocalDate oldDate = LocalDate.parse(String.valueOf(user.getStartOfDate()));
+        LocalDate now = LocalDate.parse(String.valueOf(LocalDate.now()));
+        Period diff = Period.between(oldDate, now);
+
+        if (diff.getMonths() >= 11 || diff.getYears() == 1) {
+            System.out.println(diff.getMonths());
+            jdbcTemplate.update("UPDATE users SET vacation=true WHERE id=?",
+                    user.getId());
+        } else {
+            System.out.println("До отпуска не хватает " + (11 - diff.getMonths()) + " месяца");
+        }
+    }
+
+    public List<Vacation> getVacationList(int id) {
+        return jdbcTemplate.query("SELECT * FROM vacation WHERE user_id=?",
+                new BeanPropertyRowMapper<>(Vacation.class), id);
+    }
+
+    public void createVacationList(Vacation vacation, int id) {
+        jdbcTemplate.update("INSERT INTO vacation(number, statement, start_of_date, end_of_date, user_id) " +
+                        "VALUES(?, ?, ?, ?, ?)",
+                vacation.getNumberPhone(), vacation.getStatement(), vacation.getStartDate(),
+                vacation.getEndDate(), id);
     }
 
 }

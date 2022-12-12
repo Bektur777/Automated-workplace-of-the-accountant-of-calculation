@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin: 50px 0">Edit user</h1>
+        <form th:method="PATCH" th:action="@{/hr/edit/update/{id}(id=${users.getId()})}" th:object="${users}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">First name</label>
+                    <input type="text" th:field="*{username}" id="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" th:field="*{password}" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="firstname">First name</label>
+                    <input type="text" th:field="*{firstName}" id="firstname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name</label>
+                    <input type="text" th:field="*{lastName}" id="lastname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" th:field="*{email}" id="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="text" th:field="*{age}" id="age" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="enabled">Enabled</label>
+                    <input type="text" th:field="*{enabled}" id="enabled" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="familystatus">Family status</label>
+                    <input type="text" th:field="*{familyStatus}" id="familystatus" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="children">Number of children</label>
+                    <input type="text" th:field="*{numberOfChildren}" id="children" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="birth">Place of birth</label>
+                    <input type="text" th:field="*{placeOfBirth}" id="birth" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="position">Position name</label>
+                    <input type="text" th:field="*{positionName}" id="position" class="form-control">
+                </div>
+            </div>
+            <center>
+                <br>
+                <button class="btn btn-primary" type="submit">Update</button>
+                <br>
+                <br>
+                <br>
+            </center>
+        </form>
+    </div>
+</body>
+</html>

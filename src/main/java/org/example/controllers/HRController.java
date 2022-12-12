@@ -1,11 +1,11 @@
 package org.example.controllers;
 
 import org.example.dao.HRDao;
+import org.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/hr")
@@ -20,14 +20,20 @@ public class HRController {
 
     @GetMapping("/list_of_workers")
     public String getAllWorkers(Model model) {
-        model.addAttribute("users", hrDao.getUsers("worker"));
+        model.addAttribute("users", hrDao.getUsers());
         return "/hr/all_users";
     }
 
-    @GetMapping("/list_of_accountants")
-    public String getAllAccountant(Model model) {
-        model.addAttribute("users", hrDao.getUsers("accountant"));
-        return "/hr/all_users";
+    @GetMapping("/edit/{id}")
+    public String editUsers(@PathVariable("id") int id, Model model) {
+        model.addAttribute("users", hrDao.findUserById(id));
+        return "/hr/edit";
+    }
+
+    @PatchMapping("/edit/update/{id}")
+    public String updateUser(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+        hrDao.updateUser(user, id);
+        return "redirect:/hr";
     }
 
 }

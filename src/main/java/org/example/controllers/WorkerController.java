@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.dao.WorkerDAO;
 import org.example.model.SickerLeave;
 import org.example.model.User;
+import org.example.model.Vacation;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -71,6 +72,27 @@ public class WorkerController {
     public String getWallet(@PathVariable("id") int id, Model model) {
         model.addAttribute("wallet", userRepository.getWalletUser(id));
         return "wallet";
+    }
+
+    @GetMapping("/vacation/{id}")
+    public String getVacationList(@PathVariable("id") int id, Model model) {
+        model.addAttribute("vacation", userRepository.getVacationList(id));
+        return "vacation_list";
+    }
+
+    @GetMapping("/create/vacation/{id}")
+    public String createVacationList(@PathVariable("id") int id,
+                              @ModelAttribute("vacation") Vacation vacation, Model model) {
+        model.addAttribute("vacation", vacation);
+        model.addAttribute("id", id);
+        return "create_vacation";
+    }
+
+    @PostMapping("/create/vacation/{id}")
+    public String createVacationList(@ModelAttribute("vacation") Vacation vacation,
+                                     @PathVariable("id") int id) {
+        userRepository.createVacationList(vacation, id);
+        return "redirect:/worker";
     }
 
 }
