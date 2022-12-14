@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacation edit</title>
+</head>
+<body>
+<center>
+    <h1>Vacation statement edit</h1>
+    <form th:method="PATCH" th:action="@{/hr/update/vacation/{id}(id=${vacation.getUserId()})}" th:object="${vacation}">
+        <p th:text="${user.getFirstName()}">First name</p>
+        <p th:text="${user.getLastName()}">Last name</p>
+        <p th:text="${user.getEmail()}">Email</p>
+        <p th:text="${vacation.getNumber()}">Phone number</p>
+        <p th:text="${vacation.getStatement()}">Statement</p>
+        <p th:text="${vacation.getStartOfDate()}">Start of date</p>
+        <p th:text="${vacation.getEndOfDate()}">Statement</p>
+        <input type="text" th:field="*{agreement}">
+        <input type="submit" value="Update!">
+    </form>
+</center>
+</body>
+</html>

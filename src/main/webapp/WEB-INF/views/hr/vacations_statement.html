@@ -21,6 +21,7 @@
                     <th>Start date</th>
                     <th>End date</th>
                     <th>Agreement</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -30,6 +31,7 @@
                     <td th:text="${vacation.getStartOfDate()}"></td>
                     <td th:text="${vacation.getEndOfDate()}"></td>
                     <td th:text="${vacation.isAgreement()}"></td>
+                    <td><a th:href="@{/hr/vacation_statement/{id}(id=${vacation.getUserId()})}">See</a></td>
                 </tr>
             </tbody>
         </table>

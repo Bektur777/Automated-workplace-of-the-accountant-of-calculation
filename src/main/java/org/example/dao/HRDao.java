@@ -57,4 +57,14 @@ public class HRDao {
                 new BeanPropertyRowMapper<>(SickerLeave.class));
     }
 
+    public void updateVacationUser(Vacation vacation, int id) {
+        jdbcTemplate.update("UPDATE vacation SET agreement=? WHERE user_id=?",
+                vacation.isAgreement(), id);
+    }
+
+    public Vacation getUserVacationStatementById(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM vacation WHERE user_id=?",
+                new BeanPropertyRowMapper<>(Vacation.class), id);
+    }
+
 }

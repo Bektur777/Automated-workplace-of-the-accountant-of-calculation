@@ -1,7 +1,9 @@
 package org.example.controllers;
 
 import org.example.dao.HRDao;
+import org.example.model.SickerLeave;
 import org.example.model.User;
+import org.example.model.Vacation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,12 +56,24 @@ public class HRController {
         return "/hr/vacation_list";
     }
 
+    @GetMapping("/vacation_statement/{id}")
+    public String userVacationStatement(@PathVariable("id") int id, Model model) {
+        model.addAttribute("vacation", hrDao.getUserVacationStatementById(id));
+        model.addAttribute("user", hrDao.findUserById(id));
+        return "/hr/user_vacation_statement";
+    }
+
+    @PatchMapping("/update/vacation/{id}")
+    public String updateVacation(@PathVariable("id") int id, @ModelAttribute Vacation vacation) {
+        hrDao.updateVacationUser(vacation, id);
+        return "redirect:/hr";
+    }
+
+
     @GetMapping("/sicker_leave_list")
     public String sickerLeaveList(Model model) {
         model.addAttribute("sickerLeave", hrDao.getSickerLeaveList());
         return "hr/sicker_list";
     }
-
-    
 
 }
