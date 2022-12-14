@@ -13,15 +13,15 @@ public class SickerLeave {
     private Date startDate;
     private Date endDate;
     private String reason;
-    private String hospitalName;
-    private String hospitalAddress;
+    private String nameOfHospital;
+    private String addressOfHospital;
     private String doctorName;
     private String registrationNumber;
     private int userId;
 
     public SickerLeave() {}
 
-    public SickerLeave(int id, String firstName, String lastName, String email, int age, Date startDate, Date endDate, String reason, String hospitalName, String hospitalAddress, String doctorName, String registrationNumber, int userId) {
+    public SickerLeave(int id, String firstName, String lastName, String email, int age, Date startDate, Date endDate, String reason, String nameOfHospital, String addressOfHospital, String doctorName, String registrationNumber, int userId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,8 +30,8 @@ public class SickerLeave {
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
-        this.hospitalName = hospitalName;
-        this.hospitalAddress = hospitalAddress;
+        this.nameOfHospital = nameOfHospital;
+        this.addressOfHospital = addressOfHospital;
         this.doctorName = doctorName;
         this.registrationNumber = registrationNumber;
         this.userId = userId;
@@ -101,20 +101,20 @@ public class SickerLeave {
         this.reason = reason;
     }
 
-    public String getHospitalName() {
-        return hospitalName;
+    public String getNameOfHospital() {
+        return nameOfHospital;
     }
 
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
+    public void setNameOfHospital(String nameOfHospital) {
+        this.nameOfHospital = nameOfHospital;
     }
 
-    public String getHospitalAddress() {
-        return hospitalAddress;
+    public String getAddressOfHospital() {
+        return addressOfHospital;
     }
 
-    public void setHospitalAddress(String hospitalAddress) {
-        this.hospitalAddress = hospitalAddress;
+    public void setAddressOfHospital(String addressOfHospital) {
+        this.addressOfHospital = addressOfHospital;
     }
 
     public String getDoctorName() {

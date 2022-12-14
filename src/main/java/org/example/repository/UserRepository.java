@@ -49,8 +49,8 @@ public class UserRepository {
         jdbcTemplate.update(
                 "INSERT INTO sick_leave(firstname, lastname, email, age, startdate, enddate, reason, nameofhospital, addressofhospital, doctorname, registrationnumber, userid) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 sickerLeave.getFirstName(), sickerLeave.getLastName(), sickerLeave.getEmail(), sickerLeave.getAge(),
-                sickerLeave.getStartDate(), sickerLeave.getEndDate(), sickerLeave.getReason(), sickerLeave.getHospitalName(),
-                sickerLeave.getHospitalAddress(), sickerLeave.getDoctorName(), sickerLeave.getRegistrationNumber(),
+                sickerLeave.getStartDate(), sickerLeave.getEndDate(), sickerLeave.getReason(), sickerLeave.getNameOfHospital(),
+                sickerLeave.getAddressOfHospital(), sickerLeave.getDoctorName(), sickerLeave.getRegistrationNumber(),
                 id
         );
     }

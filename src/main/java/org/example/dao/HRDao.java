@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.model.SickerLeave;
 import org.example.model.User;
 import org.example.model.Vacation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class HRDao {
     public List<Vacation> getVacationList() {
         return jdbcTemplate.query("SELECT * FROM vacation WHERE agreement = true",
                 new BeanPropertyRowMapper<>(Vacation.class));
+    }
+
+    public List<SickerLeave> getSickerLeaveList() {
+        return jdbcTemplate.query("SELECT * FROM sick_leave",
+                new BeanPropertyRowMapper<>(SickerLeave.class));
     }
 
 }

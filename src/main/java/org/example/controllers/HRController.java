@@ -54,4 +54,12 @@ public class HRController {
         return "/hr/vacation_list";
     }
 
+    @GetMapping("/sicker_leave_list")
+    public String sickerLeaveList(Model model) {
+        model.addAttribute("sickerLeave", hrDao.getSickerLeaveList());
+        return "hr/sicker_list";
+    }
+
+    
+
 }
