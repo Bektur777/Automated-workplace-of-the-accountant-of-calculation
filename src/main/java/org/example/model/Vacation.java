@@ -5,30 +5,30 @@ import java.time.LocalDate;
 
 public class Vacation {
 
-    private String numberPhone;
+    private String number;
     private String statement;
-    private Date startDate;
-    private Date endDate;
+    private Date startOfDate;
+    private Date endOfDate;
     private boolean agreement;
     private int userId;
 
     public Vacation() {}
 
-    public Vacation(String numberPhone, String statement, Date startDate, Date endDate, boolean agreement, int userId) {
-        this.numberPhone = numberPhone;
+    public Vacation(String number, String statement, Date startOfDate, Date endOfDate, boolean agreement, int userId) {
+        this.number = number;
         this.statement = statement;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startOfDate = startOfDate;
+        this.endOfDate = endOfDate;
         this.agreement = agreement;
         this.userId = userId;
     }
 
-    public String getNumberPhone() {
-        return numberPhone;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getStatement() {
@@ -39,23 +39,7 @@ public class Vacation {
         this.statement = statement;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = Date.valueOf(LocalDate.parse(startDate));
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = Date.valueOf(LocalDate.parse(endDate));
-    }
-
-    public boolean getAgreement() {
+    public boolean isAgreement() {
         return agreement;
     }
 
@@ -71,4 +55,31 @@ public class Vacation {
         this.userId = userId;
     }
 
+    public Date getStartOfDate() {
+        return startOfDate;
+    }
+
+    public void setStartOfDate(String startDate) {
+        this.startOfDate = Date.valueOf(LocalDate.parse(startDate));
+    }
+
+    public Date getEndOfDate() {
+        return endOfDate;
+    }
+
+    public void setEndOfDate(String endDate) {
+        this.endOfDate = Date.valueOf(LocalDate.parse(endDate));
+    }
+
+    @Override
+    public String toString() {
+        return "Vacation{" +
+                "numberPhone='" + number + '\'' +
+                ", statement='" + statement + '\'' +
+                ", startDate=" + startOfDate +
+                ", endDate=" + endOfDate +
+                ", agreement=" + agreement +
+                ", userId=" + userId +
+                '}';
+    }
 }

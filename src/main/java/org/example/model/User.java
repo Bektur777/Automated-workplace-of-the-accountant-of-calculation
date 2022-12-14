@@ -17,11 +17,12 @@ public class User {
     private Date startOfDate;
     private String placeOfBirth;
     private String positionName;
+    private boolean vacation;
 
     public User() {
     }
 
-    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, boolean familyStatus, int numberOfChildren, Date startOfDate, String placeOfBirth, String positionName) {
+    public User(int id, String username, String password, Boolean enabled, String firstName, String lastName, String email, int age, boolean familyStatus, int numberOfChildren, Date startOfDate, String placeOfBirth, String positionName, boolean vacation) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,6 +36,7 @@ public class User {
         this.startOfDate = startOfDate;
         this.placeOfBirth = placeOfBirth;
         this.positionName = positionName;
+        this.vacation = vacation;
     }
 
     public int getId() {
@@ -139,6 +141,14 @@ public class User {
 
     public void setPositionName(String positionName) {
         this.positionName = positionName;
+    }
+
+    public boolean getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(boolean vacation) {
+        this.vacation = vacation;
     }
 
     @Override

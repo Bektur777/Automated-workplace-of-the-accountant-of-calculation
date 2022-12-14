@@ -6,7 +6,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-
+<div th:each="res : ${vacation}">
+  <p th:text="${res.getNumberPhone()}">Number phone</p>
+  <p th:text="${res.getStatement()}">Statement</p>
+  <p th:text="${res.getStartDate()}">Start date</p>
+  <p th:text="${res.getEndDate()}">End date</p>
+  <p th:text="${res.getAgreement()}">Agreement</p>
+</div>
 
 <div class="container">
   <table class="table table-bordered table-striped">

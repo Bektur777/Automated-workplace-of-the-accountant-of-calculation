@@ -41,7 +41,11 @@
                 <td th:text="${user.getLastName()}">Last name</td>
                 <td th:text="${user.getEmail()}">Email</td>
                 <td th:text="${user.getAge()}">Age</td>
-                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/hr/edit/delete/{id}(id=${user.getId()})}">
+                        <input type="submit" class="btn btn-danger"/>
+                    </form>
+                </td>
                 <td><a th:href="@{/hr/edit/{id}(id=${user.getId()})}" class="btn btn-primary">Edit</a></td>
             </tr>
         </tbody>

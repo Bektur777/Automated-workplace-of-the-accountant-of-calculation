@@ -95,9 +95,8 @@ public class UserRepository {
             System.out.println(diff.getMonths());
             jdbcTemplate.update("UPDATE users SET vacation=true WHERE id=?",
                     user.getId());
-        } else {
-            System.out.println("До отпуска не хватает " + (11 - diff.getMonths()) + " месяца");
         }
+
     }
 
     public List<Vacation> getVacationList(int id) {
@@ -108,8 +107,8 @@ public class UserRepository {
     public void createVacationList(Vacation vacation, int id) {
         jdbcTemplate.update("INSERT INTO vacation(number, statement, start_of_date, end_of_date, user_id) " +
                         "VALUES(?, ?, ?, ?, ?)",
-                vacation.getNumberPhone(), vacation.getStatement(), vacation.getStartDate(),
-                vacation.getEndDate(), id);
+                vacation.getNumber(), vacation.getStatement(), vacation.getStartOfDate(),
+                vacation.getEndOfDate(), id);
     }
 
 }

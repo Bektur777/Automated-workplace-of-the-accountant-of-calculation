@@ -7,34 +7,81 @@
 </head>
 <body>
 <div class="container">
-    <h1 style="text-align: center; margin: 50px 0">Make a statement</h1>
-    <form th:method="POST" th:action="@{/worker/create/vacation/{id}(id=${id})}" th:object="${vacation}">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="number">Number of phone</label>
-                <input type="text" th:field="*{numberPhone}" id="number" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="statement">Statement</label>
-                <input type="text" th:field="*{statement}" id="statement" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="startDate">Start of date</label>
-                <input type="date" th:field="*{startDate}" id="startDate" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="endDate">End of date</label>
-                <input type="date" th:field="*{endDate}" id="endDate" class="form-control">
-            </div>
+    <div th:switch="${user.getVacation()}">
+        <div th:case="true">
+            <h1 style="text-align: center; margin: 50px 0">Make a statement</h1>
+            <form th:method="POST" th:action="@{/worker/create/vacation/{id}(id=${id})}" th:object="${vacation}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="number">Number of phone</label>
+                        <input type="text" th:field="*{numberPhone}" id="number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="statement">Statement</label>
+                        <input type="text" th:field="*{statement}" id="statement" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start of date</label>
+                        <input type="date" th:field="*{startDate}" id="startDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End of date</label>
+                        <input type="date" th:field="*{endDate}" id="endDate" class="form-control">
+                    </div>
+                </div>
+                <center>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <br>
+                    <br>
+                    <br>
+                </center>
+            </form>
         </div>
-        <center>
-            <br>
-            <button class="btn btn-primary" type="submit">Update</button>
+        <div th:case="false">
             <br>
             <br>
+            <center>
+                <h1>Sorry, but now you don't have permission for this</h1>
+                <h2>You should work at least 11 months</h2>
+                <h3>Start of Date: <p th:text="${user.getStartOfDate()}">Date</p></h3>
+                <h3>Current date: <div id="current_date_time_block2"></div></h3>
+            </center>
             <br>
-        </center>
-    </form>
+            <br>
+        </div>
+    </div>
+
 </div>
+<script type="text/javascript">
+
+    function zero_first_format(value)
+    {
+        if (value < 10)
+        {
+            value='0'+value;
+        }
+        return value;
+    }
+
+
+    function date_time()
+    {
+        var current_datetime = new Date();
+        var day = zero_first_format(current_datetime.getDate());
+        var month = zero_first_format(current_datetime.getMonth()+1);
+        var year = current_datetime.getFullYear();
+        var hours = zero_first_format(current_datetime.getHours());
+        var minutes = zero_first_format(current_datetime.getMinutes());
+        var seconds = zero_first_format(current_datetime.getSeconds());
+
+        return year+"."+month+"."+day+" "+hours+":"+minutes+":"+seconds;
+    }
+
+    setInterval(function () {
+        document.getElementById('current_date_time_block2').innerHTML = date_time();
+    }, 1000);
+
+</script>
 </body>
 </html>

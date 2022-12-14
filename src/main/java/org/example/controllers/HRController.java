@@ -36,4 +36,22 @@ public class HRController {
         return "redirect:/hr";
     }
 
+    @DeleteMapping("/edit/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        hrDao.deleteUserById(id);
+        return "redirect:/hr/list_of_workers";
+    }
+
+    @GetMapping("/vacation_statement_list")
+    public String vacationStatementList(Model model) {
+        model.addAttribute("vacationList", hrDao.getVacationStatementList());
+        return "hr/vacations_statement";
+    }
+
+    @GetMapping("/vacation_list")
+    public String vacationList(Model model) {
+        model.addAttribute("vacationList", hrDao.getVacationList());
+        return "/hr/vacation_list";
+    }
+
 }

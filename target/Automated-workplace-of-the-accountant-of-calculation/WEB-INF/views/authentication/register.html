@@ -40,7 +40,8 @@
                 <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="Enter age...">
             </div>
             <div class="form-group col-md-4">
-                <input class="form-control" type="text" th:field="*{positionName}">
+                <label for="post">Position name</label>
+                <input class="form-control" id="post" type="text" th:field="*{positionName}">
             </div>
         </div>
         <div class="form-row">
@@ -53,7 +54,8 @@
                 <input class="form-control" type="text" th:field="*{placeOfBirth}" id="birth" placeholder="Enter place of birth...">
             </div>
             <div class="form-group col-md-4">
-                <input class="form-control" type="text" th:field="*{familyStatus}">
+                <label for="status">Family status</label>
+                <input class="form-control" id="status" type="text" th:field="*{familyStatus}">
             </div>
         </div>
         <br>

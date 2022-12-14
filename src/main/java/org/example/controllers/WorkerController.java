@@ -85,6 +85,7 @@ public class WorkerController {
                               @ModelAttribute("vacation") Vacation vacation, Model model) {
         model.addAttribute("vacation", vacation);
         model.addAttribute("id", id);
+        model.addAttribute("user", userRepository.getUser());
         return "create_vacation";
     }
 
