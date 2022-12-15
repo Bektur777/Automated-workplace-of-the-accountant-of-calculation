@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.model.Payroll;
 import org.example.model.SickerLeave;
 import org.example.model.User;
 import org.example.model.Vacation;
@@ -65,6 +66,15 @@ public class HRDao {
     public Vacation getUserVacationStatementById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM vacation WHERE user_id=?",
                 new BeanPropertyRowMapper<>(Vacation.class), id);
+    }
+
+    public Payroll getUserPayroll(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM payroll WHERE user_id=?",
+                new BeanPropertyRowMapper<>(Payroll.class), id);
+    }
+
+    public void updateUserAward(Payroll payroll, int id) {
+        jdbcTemplate.update("UPDATE payroll SET award=? WHERE user_id=?", payroll.getAward(), id);
     }
 
 }

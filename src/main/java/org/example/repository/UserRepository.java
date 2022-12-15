@@ -31,10 +31,15 @@ public class UserRepository {
                 new BeanPropertyRowMapper<>(User.class), user.getUsername());
         assert userWallet != null;
         addWalletToUser(userWallet.getId());
+        addPayRoll(userWallet.getId());
     }
 
     public void addWalletToUser(int id) {
         jdbcTemplate.update("INSERT INTO wallet(wallet, userId) VALUES(?, ?)", 0, id);
+    }
+
+    public void addPayRoll(int id) {
+        jdbcTemplate.update("INSERT INTO payroll(user_id), VALUES(?)", id);
     }
 
     public void updateUser(User user, int id) {

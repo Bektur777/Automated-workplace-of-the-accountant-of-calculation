@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.dao.HRDao;
+import org.example.model.Payroll;
 import org.example.model.SickerLeave;
 import org.example.model.User;
 import org.example.model.Vacation;
@@ -68,12 +69,24 @@ public class HRController {
         hrDao.updateVacationUser(vacation, id);
         return "redirect:/hr";
     }
-
-
+    
     @GetMapping("/sicker_leave_list")
     public String sickerLeaveList(Model model) {
         model.addAttribute("sickerLeave", hrDao.getSickerLeaveList());
         return "hr/sicker_list";
+    }
+
+    @GetMapping("/payroll/{id}")
+    public String certainUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("payroll", hrDao.getUserPayroll(id));
+        model.addAttribute("user", hrDao.findUserById(id));
+        return "/hr/payroll";
+    }
+
+    @PatchMapping("/edit/payroll/{id}")
+    public String editUserAward(@PathVariable("id") int id, @ModelAttribute Payroll payroll) {
+        hrDao.updateUserAward(payroll, id);
+        return "redirect:/";
     }
 
 }

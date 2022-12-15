@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit award</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin: 50px 0">Edit prize</h1>
+        <form th:method="PATCH" th:action="@{/hr/edit/payroll/{id}(id=${user.getId()})}" th:object="${payroll}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="award">Award</label>
+                    <input type="text" th:field="*{award}" id="award" class="form-control">
+                </div>
+            </div>
+            <center>
+                <button class="btn btn-primary" type="submit">Update</button>
+            </center>
+        </form>
+    </div>
+</body>
+</html>

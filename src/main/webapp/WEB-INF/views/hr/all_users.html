@@ -32,6 +32,7 @@
                 <th>Age</th>
                 <th>Action</th>
                 <th>Update</th>
+                <th>Award</th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -43,10 +44,11 @@
                 <td th:text="${user.getAge()}">Age</td>
                 <td>
                     <form th:method="DELETE" th:action="@{/hr/edit/delete/{id}(id=${user.getId()})}">
-                        <input type="submit" class="btn btn-danger"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
                 <td><a th:href="@{/hr/edit/{id}(id=${user.getId()})}" class="btn btn-primary">Edit</a></td>
+                <td><a th:href="@{/hr/payroll/{id}(id=${user.getId()})}" class="btn btn-primary">Award</a></td>
             </tr>
         </tbody>
     </table>
