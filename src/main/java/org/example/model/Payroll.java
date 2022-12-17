@@ -1,5 +1,8 @@
 package org.example.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Payroll {
 
     private int id;
@@ -10,9 +13,14 @@ public class Payroll {
     private double finalAccount;
     private int userId;
 
+    private Date startDate;
+    private Date endDate;
+    private int countWorkDays;
+    private Date latenessAccounting;
+
     public Payroll() {}
 
-    public Payroll(int id, double alimony, double award, double retention, double salary, double finalAccount, int userId) {
+    public Payroll(int id, double alimony, double award, double retention, double salary, double finalAccount, int userId, Date startDate, Date endDate, int countWorkDays, Date latenessAccounting) {
         this.id = id;
         this.alimony = alimony;
         this.award = award;
@@ -20,6 +28,10 @@ public class Payroll {
         this.salary = salary;
         this.finalAccount = finalAccount;
         this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.countWorkDays = countWorkDays;
+        this.latenessAccounting = latenessAccounting;
     }
 
     public int getId() {
@@ -76,6 +88,38 @@ public class Payroll {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = Date.valueOf(LocalDate.parse(startDate));
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = Date.valueOf(LocalDate.parse(endDate));
+    }
+
+    public int getCountWorkDays() {
+        return countWorkDays;
+    }
+
+    public void setCountWorkDays(int countWorkDays) {
+        this.countWorkDays = countWorkDays;
+    }
+
+    public Date getLatenessAccounting() {
+        return latenessAccounting;
+    }
+
+    public void setLatenessAccounting(Date latenessAccounting) {
+        this.latenessAccounting = latenessAccounting;
     }
 
 }

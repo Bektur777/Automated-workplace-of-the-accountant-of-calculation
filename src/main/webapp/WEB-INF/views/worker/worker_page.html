@@ -9,8 +9,6 @@
         <h1>Worker Page</h1>
         <br>
         <br>
-        <div th:switch="${user.getVacation()}">
-            <ul th:case="false">
                 <li>1: <a href="/worker/profile">See my information</a></li>
                 <li>2: Просмотреть расчетный лист</li>
                 <li>3: <a th:href="@{/worker/wallet/{id}(id=${user.getId()})}">See my wallet</a></li>
@@ -19,10 +17,6 @@
                 <li>6: <a th:href="@{/worker/create/vacation/{id}(id=${user.getId()})}">Make a request for a leave of absence</a></li>
                 <li>7: <a th:href="@{/worker/vacation/{id}(id=${user.getId()})}">See my vacation lists</a></li>
                 <li>8: <a href="/logout">Exit</a></li>
-            </ul>
-            <ul th:case="true">
-                <li><a th:href="@{/worker/wallet/{id}(id=${user.getId()})}">See my wallet</a></li>
-            </ul>
         </div>
     </center>
 </body>

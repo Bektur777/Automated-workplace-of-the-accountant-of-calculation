@@ -2,7 +2,6 @@ package org.example.controllers;
 
 import org.example.dao.HRDao;
 import org.example.model.Payroll;
-import org.example.model.SickerLeave;
 import org.example.model.User;
 import org.example.model.Vacation;
 import org.springframework.beans.factory.annotation.Autowired;
