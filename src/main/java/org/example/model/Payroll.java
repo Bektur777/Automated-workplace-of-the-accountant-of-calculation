@@ -16,11 +16,10 @@ public class Payroll {
     private Date startDate;
     private Date endDate;
     private int countWorkDays;
-    private Date latenessAccounting;
 
     public Payroll() {}
 
-    public Payroll(int id, double alimony, double award, double retention, double salary, double finalAccount, int userId, Date startDate, Date endDate, int countWorkDays, Date latenessAccounting) {
+    public Payroll(int id, double alimony, double award, double retention, double salary, double finalAccount, int userId, Date startDate, Date endDate, int countWorkDays) {
         this.id = id;
         this.alimony = alimony;
         this.award = award;
@@ -31,7 +30,6 @@ public class Payroll {
         this.startDate = startDate;
         this.endDate = endDate;
         this.countWorkDays = countWorkDays;
-        this.latenessAccounting = latenessAccounting;
     }
 
     public int getId() {
@@ -114,12 +112,20 @@ public class Payroll {
         this.countWorkDays = countWorkDays;
     }
 
-    public Date getLatenessAccounting() {
-        return latenessAccounting;
-    }
-
-    public void setLatenessAccounting(Date latenessAccounting) {
-        this.latenessAccounting = latenessAccounting;
+    @Override
+    public String toString() {
+        return "Payroll{" +
+                "id=" + id +
+                ", alimony=" + alimony +
+                ", award=" + award +
+                ", retention=" + retention +
+                ", salary=" + salary +
+                ", finalAccount=" + finalAccount +
+                ", userId=" + userId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", countWorkDays=" + countWorkDays +
+                '}';
     }
 
 }

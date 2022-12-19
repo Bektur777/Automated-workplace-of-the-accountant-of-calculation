@@ -8,10 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Period;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.List;
 
 @Repository
@@ -86,13 +86,13 @@ public class UserRepository {
         updateCurrentUser(username);
         checkVacationList();
         checkUserSalary();
+        System.out.println("Good");
         return jdbcTemplate.queryForObject("SELECT * FROM users WHERE username=?",
                 new BeanPropertyRowMapper<>(User.class), username);
     }
 
     public void updateCurrentUser(String username) {
         jdbcTemplate.update("UPDATE current_user_username SET username=?", username);
-
     }
 
     public void checkVacationList() {
@@ -144,19 +144,19 @@ public class UserRepository {
                 new BeanPropertyRowMapper<>(Payroll.class), user.getId());
 
         assert payroll != null;
-        Date startDate = Date.valueOf(String.valueOf(payroll.getStartDate()));
         LocalDate endDate = LocalDate.parse(String.valueOf(payroll.getEndDate()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        LocalDate localDate = LocalDate.of(endDate.getYear(), endDate.getMonthValue(), endDate.getDayOfMonth());
+        LocalDate localDate = LocalDate.of(endDate.getYear(), endDate.getMonthValue()+1, endDate.getDayOfMonth());
         Date endLocalDate = Date.valueOf(localDate);
 
         if (Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getEndDate()) == 0) {
             jdbcTemplate.update("UPDATE payroll SET alimony=?, award=?, retention=?, " +
-                    "start_date=?, end_date=?, count_work_days=?", 0, 0, 0, payroll.getEndDate(),
+                    "start_date=?, end_date=?, count_work_days=? WHERE id=?", 0, 0, 0, payroll.getEndDate(),
                     localDate, (endLocalDate.getTime() - payroll.getEndDate().getTime() /
-                            (24 * 60 * 60 * 1000)) - getCountOfWeekdays(payroll.getEndDate(), endLocalDate));
+                            (24 * 60 * 60 * 1000)) - getCountOfWeekdays(payroll.getEndDate(), endLocalDate),
+                    payroll.getId());
         } else {
             double alimony = 0;
             if (!user.getFamilyStatus()) {
@@ -167,12 +167,37 @@ public class UserRepository {
                     default -> alimony = 0.5 * payroll.getSalary();
                 }
             }
-            jdbcTemplate.update("UPDATE payroll SET alimony=?, retention=?, " +
-                    "count_work_days=count_work_days-1", alimony);
+
+            jdbcTemplate.update("UPDATE payroll SET alimony=?, retention=? WHERE id=?", alimony, getRetention(payroll.getSalary()), payroll.getId());
+            System.out.println("1 is done");
         }
 
     }
 
+    public double getRetention(double salary) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+        LocalTime d1 = LocalTime.parse(dateFormat.format(new java.util.Date(12600000)));
+        LocalTime d2 = LocalTime.parse(dateFormat.format(new java.util.Date()));
+
+        double retention = 0;
+
+        long m1 = d1.get(ChronoField.MILLI_OF_DAY);
+        long m2 = d2.get(ChronoField.MILLI_OF_DAY);
+
+        long diff = m2 - m1;
+
+        if (diff < 0) {
+            retention = 0;
+        }
+
+        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        long res = diffMinutes + diffHours*60;
+
+        retention = salary/22/8/60*res;
+
+        return retention;
+    }
 
 }
