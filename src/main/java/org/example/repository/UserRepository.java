@@ -48,7 +48,7 @@ public class UserRepository {
 
     public void updateUser(User user, int id) {
         jdbcTemplate.update("UPDATE users SET username=?, password=?, " +
-                "firstname=?, lastname=?, email=?, age=? WHERE id=?",
+                        "firstname=?, lastname=?, email=?, age=? WHERE id=?",
                 user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getAge(), id);
         updateCurrentUser(user.getUsername());
@@ -143,6 +143,9 @@ public class UserRepository {
         Payroll payroll = jdbcTemplate.queryForObject("SELECT * FROM payroll WHERE user_id=?",
                 new BeanPropertyRowMapper<>(Payroll.class), user.getId());
 
+        Position position = jdbcTemplate.queryForObject("SELECT * FROM position WHERE post=?",
+                new BeanPropertyRowMapper<>(Position.class), user.getPositionName());
+
         assert payroll != null;
         LocalDate endDate = LocalDate.parse(String.valueOf(payroll.getEndDate()));
 
@@ -151,12 +154,20 @@ public class UserRepository {
         LocalDate localDate = LocalDate.of(endDate.getYear(), endDate.getMonthValue()+1, endDate.getDayOfMonth());
         Date endLocalDate = Date.valueOf(localDate);
 
+        long workDays = (endLocalDate.getTime() - payroll.getEndDate().getTime()) /
+                (24 * 60 * 60 * 1000);
+
+        System.out.println(workDays);
+
+        assert position != null;
+        double salary = payroll.getSalary() == 0 ? position.getSalary() : payroll.getSalary();
         if (Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getEndDate()) == 0) {
+            jdbcTemplate.update("UPDATE wallet SET wallet=? WHERE userid=?",
+                    payroll.getFinalAccount() + payroll.getAward() - payroll.getSalary() /
+                            (workDays - getCountOfWeekdays(payroll.getEndDate(), endLocalDate)), payroll.getUserId());
             jdbcTemplate.update("UPDATE payroll SET alimony=?, award=?, retention=?, " +
-                    "start_date=?, end_date=?, count_work_days=? WHERE id=?", 0, 0, 0, payroll.getEndDate(),
-                    localDate, (endLocalDate.getTime() - payroll.getEndDate().getTime() /
-                            (24 * 60 * 60 * 1000)) - getCountOfWeekdays(payroll.getEndDate(), endLocalDate),
-                    payroll.getId());
+                            "start_date=?, end_date=?, count_work_days=? WHERE id=?", 0, 0, 0, payroll.getEndDate(),
+                    localDate, workDays,payroll.getId());
         } else {
             double alimony = 0;
             if (!user.getFamilyStatus()) {
@@ -167,9 +178,12 @@ public class UserRepository {
                     default -> alimony = 0.5 * payroll.getSalary();
                 }
             }
-
-            jdbcTemplate.update("UPDATE payroll SET alimony=?, retention=? WHERE id=?", alimony, getRetention(payroll.getSalary()), payroll.getId());
-            System.out.println("1 is done");
+            if (Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getToday()) != 0) {
+                double retention = getRetention(payroll.getSalary());
+                jdbcTemplate.update("UPDATE payroll SET alimony=?, retention=?, " +
+                                "count_work_days=count_work_days-1, final_account=final_account-?, today=? WHERE id=?",
+                        alimony, retention, retention, LocalDate.now(), payroll.getId());
+            }
         }
 
     }
