@@ -35,8 +35,8 @@ public class HomeController {
     }
 
     @GetMapping("/hr")
-    public String hr() {
-        userRepository.getUser();
+    public String hr(Model model) {
+        model.addAttribute("user", userRepository.getUser());
         return "hr/hr_page";
     }
 

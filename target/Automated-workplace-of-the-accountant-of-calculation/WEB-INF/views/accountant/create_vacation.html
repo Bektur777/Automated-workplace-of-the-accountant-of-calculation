@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create vacation list</title>
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <!-- App css -->
+  <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/jquery-ui.min.css}" rel="stylesheet">
+  <link th:href="@{/styles/css/icons.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/metisMenu.min.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/app.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body class="dark-sidenav">
+<!-- Left Sidenav -->
+<div class="left-sidenav">
+  <!-- LOGO -->
+  <div class="brand">
+    <a href="" class="logo">
+                <span>
+                    <img th:src="@{/images/logo-sm.png}" alt="logo-small" class="logo-sm">
+                </span>
+      <span>
+                    <img th:src="@{/images/logo.png}" alt="logo-large" class="logo-lg logo-light">
+                    <img th:src="@{/images/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+    </a>
+  </div>
+  <!--end logo-->
+  <div class="menu-content h-100" data-simplebar>
+    <ul class="metismenu left-sidenav-menu">
+      <li class="menu-label mt-0">Main</li>
+      <li>
+        <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <ul class="nav-second-level" aria-expanded="false">
+          <li class="nav-item"><a href="/accountant/position">Position salary</a></li>
+          <li class="nav-item"><a href="/accountant/payroll">List payrolls</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/profile}">See my information</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/payroll/{id}(id=${user.getId()})}">My payroll</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/wallet/{id}(id=${user.getId()})}">See my wallet</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/sicker_leave/{id}(id=${user.getId()})}">Create sicker leave</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/sicker_leave/{id}(id=${user.getId()})}">See my sicker leaves</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/vacation/{id}(id=${user.getId()})}">Make a request for a leave of absence</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/vacation/{id}(id=${user.getId()})}">See my vacation lists</a></li>
+          <li class="nav-item"><a href="/logout">Exit</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div style="margin-left: 380px">
+  <div th:switch="${user.getVacation()}">
+    <div th:case="true">
+      <h1 style="margin-left: 250px; width: 500px; margin-top: 50px">Make a statement</h1>
+      <form th:method="POST" th:action="@{/accountant/create/vacation/{id}(id=${id})}" th:object="${vacation}">
+        <div class="form-group">
+          <label for="number">Number of phone</label>
+          <input type="text" th:field="*{number}" id="number" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="statement">Statement</label>
+          <input type="text" th:field="*{statement}" id="statement" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="startDate">Start of date</label>
+          <input type="date" th:field="*{startOfDate}" id="startDate" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="endDate">End of date</label>
+          <input type="date" th:field="*{endOfDate}" id="endDate" class="form-control">
+        </div>
+        <center>
+          <br>
+          <button class="btn btn-primary" type="submit">Update</button>
+          <br>
+          <br>
+          <br>
+        </center>
+      </form>
+    </div>
+    <div th:case="false">
+      <br>
+      <br>
+      <center>
+        <h1>Sorry, but now you don't have permission for this</h1>
+        <h2>You should work at least 11 months</h2>
+        <h3>Start of Date: <h3 th:text="${user.getStartOfDate()}">Date</h3></h3>
+        <h3>Current date: <div id="current_date_time_block2"></div></h3>
+      </center>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+  function zero_first_format(value)
+  {
+    if (value < 10)
+    {
+      value='0'+value;
+    }
+    return value;
+  }
+
+
+  function date_time()
+  {
+    var current_datetime = new Date();
+    var day = zero_first_format(current_datetime.getDate());
+    var month = zero_first_format(current_datetime.getMonth()+1);
+    var year = current_datetime.getFullYear();
+    var hours = zero_first_format(current_datetime.getHours());
+    var minutes = zero_first_format(current_datetime.getMinutes());
+    var seconds = zero_first_format(current_datetime.getSeconds());
+
+    return year+"."+month+"."+day+" "+hours+":"+minutes+":"+seconds;
+  }
+
+  setInterval(function () {
+    document.getElementById('current_date_time_block2').innerHTML = date_time();
+  }, 1000);
+
+</script>
+</body>
+</html>

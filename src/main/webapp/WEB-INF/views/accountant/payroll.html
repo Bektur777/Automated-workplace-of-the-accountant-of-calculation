@@ -2,10 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Payroll list</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- App favicon -->
+    <title>Payroll</title>
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
     <!-- App css -->
     <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
@@ -45,7 +42,7 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/accountant/sicker_leave/{id}(id=${user.getId()})}">See my sicker leaves</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/vacation/{id}(id=${user.getId()})}">Make a request for a leave of absence</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/accountant/vacation/{id}(id=${user.getId()})}">See my vacation lists</a></li>
-                    <li><a href="/logout">Exit</a></li>
+                    <li class="nav-item"><a href="/logout">Exit</a></li>
                 </ul>
             </li>
         </ul>
@@ -65,7 +62,7 @@
         </tr>
         </thead>
         <tbody id="myTable">
-        <tr th:each="res : ${payrolls}">
+        <tr th:each="res : ${payroll}">
             <td th:text="${res.getAlimony()}">Alimony</td>
             <td th:text="${res.getAward()}">Award</td>
             <td th:text="${res.getRetention()}">Retention</td>

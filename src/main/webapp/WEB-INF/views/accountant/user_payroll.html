@@ -36,8 +36,15 @@
             <li>
                 <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="/accountant/position">Position salary</a></li>
-                    <li><a href="/accountant/payroll">List payrolls</a></li>
+                    <li class="nav-item"><a href="/accountant/position">Position salary</a></li>
+                    <li class="nav-item"><a href="/accountant/payroll">List payrolls</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/profile}">See my information</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/payroll/{id}(id=${user.getId()})}">My payroll</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/wallet/{id}(id=${user.getId()})}">See my wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/sicker_leave/{id}(id=${user.getId()})}">Create sicker leave</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/sicker_leave/{id}(id=${user.getId()})}">See my sicker leaves</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/vacation/{id}(id=${user.getId()})}">Make a request for a leave of absence</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/accountant/vacation/{id}(id=${user.getId()})}">See my vacation lists</a></li>
                     <li><a href="/logout">Exit</a></li>
                 </ul>
             </li>

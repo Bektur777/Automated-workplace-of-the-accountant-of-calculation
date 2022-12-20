@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sicker Leave Page</title>
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <!-- App css -->
+  <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/jquery-ui.min.css}" rel="stylesheet">
+  <link th:href="@{/styles/css/icons.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/metisMenu.min.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/styles/css/app.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body class="dark-sidenav">
+<!-- Left Sidenav -->
+<div class="left-sidenav">
+  <!-- LOGO -->
+  <div class="brand">
+    <a href="" class="logo">
+                <span>
+                    <img th:src="@{/images/logo-sm.png}" alt="logo-small" class="logo-sm">
+                </span>
+      <span>
+                    <img th:src="@{/images/logo.png}" alt="logo-large" class="logo-lg logo-light">
+                    <img th:src="@{/images/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+    </a>
+  </div>
+  <!--end logo-->
+  <div class="menu-content h-100" data-simplebar>
+    <ul class="metismenu left-sidenav-menu">
+      <li class="menu-label mt-0">Main</li>
+      <li>
+        <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <ul class="nav-second-level" aria-expanded="false">
+          <li class="nav-item"><a href="/accountant/position">Position salary</a></li>
+          <li class="nav-item"><a href="/accountant/payroll">List payrolls</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/profile}">See my information</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/payroll/{id}(id=${user.getId()})}">My payroll</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/wallet/{id}(id=${user.getId()})}">See my wallet</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/sicker_leave/{id}(id=${user.getId()})}">Create sicker leave</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/sicker_leave/{id}(id=${user.getId()})}">See my sicker leaves</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/create/vacation/{id}(id=${user.getId()})}">Make a request for a leave of absence</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/accountant/vacation/{id}(id=${user.getId()})}">See my vacation lists</a></li>
+          <li class="nav-item"><a href="/logout">Exit</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div style="margin-left: 280px">
+  <h1 style="text-align: center; margin-top: 50px; margin-bottom: 30px;">Sicker list</h1>
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Reason</th>
+      <th>Hospital name</th>
+      <th>Hospital address</th>
+      <th>Doctor name</th>
+      <th>Registration number</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    <tr th:each="sickerLeave : ${sickerLeaves}">
+      <td th:text="${sickerLeave.getFirstName()}">First name</td>
+      <td th:text="${sickerLeave.getLastName()}">Last Name</td>
+      <td th:text="${sickerLeave.getEmail()}">Email</td>
+      <td th:text="${sickerLeave.getAge()}">Age</td>
+      <td th:text="${sickerLeave.getStartDate()}">Start Date</td>
+      <td th:text="${sickerLeave.getEndDate()}">End Date</td>
+      <td th:text="${sickerLeave.getReason()}">Reason</td>
+      <td th:text="${sickerLeave.getNameOfHospital()}">Hospital name</td>
+      <td th:text="${sickerLeave.getAddressOfHospital()}">Hospital address</td>
+      <td th:text="${sickerLeave.getDoctorName()}">Doctor name</td>
+      <td th:text="${sickerLeave.getRegistrationNumber()}">Registration number</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
