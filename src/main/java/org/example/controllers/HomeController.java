@@ -28,6 +28,11 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/accountant")
+    public String accountant() {
+        return "accountant/accountant_page";
+    }
+
     @GetMapping("/hr")
     public String hr() {
         userRepository.getUser();

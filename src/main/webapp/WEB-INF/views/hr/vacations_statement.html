@@ -3,16 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Vacations statement</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <!-- App css -->
+    <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/metisMenu.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/app.min.css}" rel="stylesheet" type="text/css" />
 </head>
-<body>
-    <div class="container">
-        <h2>Filterable Table</h2>
-        <p>Type something in the input field to search the table for first names, last names or emails:</p>
-        <input class="form-control" id="myInput" type="text" placeholder="Search..">
-        <br>
+<body class="dark-sidenav">
+<!-- Left Sidenav -->
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="" class="logo">
+                <span>
+                    <img th:src="@{/images/logo-sm.png}" alt="logo-small" class="logo-sm">
+                </span>
+            <span>
+                    <img th:src="@{/images/logo.png}" alt="logo-large" class="logo-lg logo-light">
+                    <img th:src="@{/images/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li class="menu-label mt-0">Main</li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="/hr/list_of_workers">See all workers</a></li>
+                    <li><a href="/hr/vacation_statement_list">See all vacations statement</a></li>
+                    <li><a href="/hr/vacation_list">See vacation list</a></li>
+                    <li><a href="/hr/sicker_leave_list">See sicker list</a></li>
+                    <li><a href="/logout">Exit</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="margin-left: 320px">
+    <h1 style="text-align: center; width: 900px; margin-top: 50px">Search</h1>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -31,7 +69,7 @@
                     <td th:text="${vacation.getStartOfDate()}"></td>
                     <td th:text="${vacation.getEndOfDate()}"></td>
                     <td th:text="${vacation.isAgreement()}"></td>
-                    <td><a th:href="@{/hr/vacation_statement/{id}(id=${vacation.getUserId()})}">See</a></td>
+                    <td><a th:href="@{/hr/vacation_statement/{id}(id=${vacation.getUserId()})}" class="btn btn-primary">See</a></td>
                 </tr>
             </tbody>
         </table>

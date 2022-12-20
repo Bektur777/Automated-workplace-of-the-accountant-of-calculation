@@ -40,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accountant/**").hasAuthority("ACCOUNTANT")
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/css/**","/js/**","/scss/**", "/fonts/**", "/pages/**", "/images/**"
+                        ).permitAll()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")

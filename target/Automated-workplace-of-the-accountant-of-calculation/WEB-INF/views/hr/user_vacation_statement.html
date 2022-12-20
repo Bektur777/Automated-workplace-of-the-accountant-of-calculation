@@ -3,21 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>Vacation edit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <!-- App css -->
+    <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/metisMenu.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/app.min.css}" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<center>
-    <h1>Vacation statement edit</h1>
+<body class="dark-sidenav">
+<!-- Left Sidenav -->
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="" class="logo">
+                <span>
+                    <img th:src="@{/images/logo-sm.png}" alt="logo-small" class="logo-sm">
+                </span>
+            <span>
+                    <img th:src="@{/images/logo.png}" alt="logo-large" class="logo-lg logo-light">
+                    <img th:src="@{/images/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li class="menu-label mt-0">Main</li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="/hr/list_of_workers">See all workers</a></li>
+                    <li><a href="/hr/vacation_statement_list">See all vacations statement</a></li>
+                    <li><a href="/hr/vacation_list">See vacation list</a></li>
+                    <li><a href="/hr/sicker_leave_list">See sicker list</a></li>
+                    <li><a href="/logout">Exit</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="margin-left: 310px">
+    <h1 style="text-align: center; width: 900px; margin: 50px 0">Agree statement</h1>
     <form th:method="PATCH" th:action="@{/hr/update/vacation/{id}(id=${vacation.getUserId()})}" th:object="${vacation}">
-        <p th:text="${user.getFirstName()}">First name</p>
-        <p th:text="${user.getLastName()}">Last name</p>
-        <p th:text="${user.getEmail()}">Email</p>
-        <p th:text="${vacation.getNumber()}">Phone number</p>
-        <p th:text="${vacation.getStatement()}">Statement</p>
-        <p th:text="${vacation.getStartOfDate()}">Start of date</p>
-        <p th:text="${vacation.getEndOfDate()}">Statement</p>
-        <input type="text" th:field="*{agreement}">
-        <input type="submit" value="Update!">
+        <div class="form-row" style="margin-bottom: 20px">
+            <div class="col">
+                <label for="username">First name</label>
+                <p th:text="${user.getFirstName()}" id="username" class="form-control">First name</p>
+            </div>
+            <div class="col">
+                <label for="lname">Last name</label>
+                <p th:text="${user.getLastName()}" id="lname" class="form-control">Last name</p>
+            </div>
+        </div>
+        <div class="form-row" style="margin-bottom: 20px">
+            <div class="col">
+                <label for="email">Email</label>
+                <p th:text="${user.getEmail()}" id="email" class="form-control">Email</p>
+            </div>
+            <div class="col">
+                <label for="number">Phone number</label>
+                <p th:text="${vacation.getNumber()}" id="number" class="form-control">Phone number</p>
+            </div>
+        </div>
+        <div class="form-row" style="margin-bottom: 20px">
+            <div class="col">
+                <label for="statement">Statement</label>
+                <p th:text="${vacation.getStatement()}" id="statement" class="form-control">Statement</p>
+            </div>
+            <div class="col">
+                <label for="sdate">Start of date</label>
+                <p th:text="${vacation.getStartOfDate()}" id="sdate" class="form-control">Start of date</p>
+            </div>
+            <div class="col">
+                <label for="edate">End of date</label>
+                <p th:text="${vacation.getEndOfDate()}" id="edate" class="form-control">End date</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input style="text-align: center" type="text" th:field="*{agreement}" class="form-control">
+        </div>
+        <center>
+            <button class="btn btn-primary">Update</button>
+        </center>
     </form>
-</center>
+</div>
 </body>
 </html>

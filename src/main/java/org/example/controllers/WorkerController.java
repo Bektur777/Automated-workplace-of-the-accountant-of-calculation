@@ -29,6 +29,7 @@ public class WorkerController {
                               Model model, @PathVariable("id") int id) {
         model.addAttribute("sicker", sickerLeave);
         model.addAttribute("userId", id);
+        model.addAttribute("userProfile", userRepository.getUser());
         return "worker/create_sicker_page";
     }
 
@@ -42,6 +43,7 @@ public class WorkerController {
     @GetMapping("/sicker_leave/{id}")
     public String getUserSickerLeave(@PathVariable("id") int id, Model model) {
         model.addAttribute("sickerLeaves", userRepository.getSickerLeave(id));
+        model.addAttribute("userProfile", userRepository.getUser());
         return "worker/sicker_page";
     }
 
@@ -71,12 +73,14 @@ public class WorkerController {
     @GetMapping("/wallet/{id}")
     public String getWallet(@PathVariable("id") int id, Model model) {
         model.addAttribute("wallet", userRepository.getWalletUser(id));
+        model.addAttribute("userProfile", userRepository.getUser());
         return "wallet";
     }
 
     @GetMapping("/vacation/{id}")
     public String getVacationList(@PathVariable("id") int id, Model model) {
         model.addAttribute("vacation", userRepository.getVacationList(id));
+        model.addAttribute("userProfile", userRepository.getUser());
         return "vacation_list";
     }
 
@@ -85,7 +89,7 @@ public class WorkerController {
                               @ModelAttribute("vacation") Vacation vacation, Model model) {
         model.addAttribute("vacation", vacation);
         model.addAttribute("id", id);
-        model.addAttribute("user", userRepository.getUser());
+        model.addAttribute("userProfile", userRepository.getUser());
         return "create_vacation";
     }
 
@@ -94,6 +98,13 @@ public class WorkerController {
                                      @PathVariable("id") int id) {
         userRepository.createVacationList(vacation, id);
         return "redirect:/worker";
+    }
+
+    @GetMapping("/payroll/{id}")
+    public String userPayroll(@PathVariable("id") int id, Model model) {
+        model.addAttribute("payroll", userRepository.getUserPayroll(id));
+        model.addAttribute("userProfile", userRepository.getUser());
+        return "payroll";
     }
 
 }

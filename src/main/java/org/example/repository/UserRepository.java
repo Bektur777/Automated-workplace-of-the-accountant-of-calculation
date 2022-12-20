@@ -138,6 +138,15 @@ public class UserRepository {
         return countWeekdays;
     }
 
+    public int getSickDays(int id) {
+        SickerLeave sickerLeave = jdbcTemplate.queryForObject("SELECT * FROM sick_leave WHERE userid=?",
+                new BeanPropertyRowMapper<>(SickerLeave.class), id);
+        long sickDays = sickerLeave != null ? (sickerLeave.getEndDate().getTime() - sickerLeave.getStartDate().getTime()) /
+                (24 * 60 * 60 * 1000) : 0;
+        System.out.println(sickDays);
+        return (int) sickDays;
+    }
+
     public void checkUserSalary() {
         User user = getUser();
         Payroll payroll = jdbcTemplate.queryForObject("SELECT * FROM payroll WHERE user_id=?",
@@ -157,14 +166,14 @@ public class UserRepository {
         long workDays = (endLocalDate.getTime() - payroll.getEndDate().getTime()) /
                 (24 * 60 * 60 * 1000);
 
-        System.out.println(workDays);
-
-        assert position != null;
         double salary = payroll.getSalary() == 0 ? position.getSalary() : payroll.getSalary();
-        if (Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getEndDate()) == 0) {
+
+        System.out.println(Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getEndDate()));
+        if (Date.valueOf(formatter.format(LocalDate.now())).compareTo(payroll.getEndDate()) >= 0) {
             jdbcTemplate.update("UPDATE wallet SET wallet=? WHERE userid=?",
                     payroll.getFinalAccount() + payroll.getAward() - payroll.getSalary() /
-                            (workDays - getCountOfWeekdays(payroll.getEndDate(), endLocalDate)), payroll.getUserId());
+                            (workDays - getCountOfWeekdays(payroll.getEndDate(), endLocalDate))
+                            * (payroll.getCountWorkDays() - getSickDays(user.getId())), payroll.getUserId());
             jdbcTemplate.update("UPDATE payroll SET alimony=?, award=?, retention=?, " +
                             "start_date=?, end_date=?, count_work_days=? WHERE id=?", 0, 0, 0, payroll.getEndDate(),
                     localDate, workDays,payroll.getId());
@@ -212,6 +221,11 @@ public class UserRepository {
         retention = salary/22/8/60*res;
 
         return retention;
+    }
+
+    public Payroll getUserPayroll(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM payroll WHERE user_id=?",
+                new BeanPropertyRowMapper<>(Payroll.class), id);
     }
 
 }

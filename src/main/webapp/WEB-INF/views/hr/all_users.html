@@ -3,55 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>All workers</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <!-- App css -->
+    <link th:href="@{/styles/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/metisMenu.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/styles/css/app.min.css}" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<!--    <div th:each="user : ${users}">-->
-<!--        <p th:text="${user.getUsername()}">Login</p>-->
-<!--        <p th:text="${user.getFirstName()}">First name</p>-->
-<!--        <p th:text="${user.getLastName()}">Last name</p>-->
-<!--        <p th:text="${user.getEmail()}">Email</p>-->
-<!--        <p th:text="${user.getAge()}">Age</p>-->
-<!--    </div>-->
-
-
-<div class="container">
-    <h2>Filterable Table</h2>
-    <p>Type something in the input field to search the table for first names, last names or emails:</p>
+<body class="dark-sidenav">
+<!-- Left Sidenav -->
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="" class="logo">
+                <span>
+                    <img th:src="@{/images/logo-sm.png}" alt="logo-small" class="logo-sm">
+                </span>
+            <span>
+                    <img th:src="@{/images/logo.png}" alt="logo-large" class="logo-lg logo-light">
+                    <img th:src="@{/images/logo-dark.png}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li class="menu-label mt-0">Main</li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Menu</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="/hr/list_of_workers">See all workers</a></li>
+                    <li><a href="/hr/vacation_statement_list">See all vacations statement</a></li>
+                    <li><a href="/hr/vacation_list">See vacation list</a></li>
+                    <li><a href="/hr/sicker_leave_list">See sicker list</a></li>
+                    <li><a href="/logout">Exit</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="margin-left: 320px">
+    <h1 style="text-align: center; width: 900px; margin-top: 50px">Search</h1>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <th>Username</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>Action</th>
-                <th>Update</th>
-                <th>Award</th>
-            </tr>
+        <tr>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Action</th>
+            <th>Update</th>
+            <th>Award</th>
+        </tr>
         </thead>
         <tbody id="myTable">
-            <tr th:each="user : ${users}">
-                <td th:text="${user.getUsername()}">Username</td>
-                <td th:text="${user.getFirstName()}">First name</td>
-                <td th:text="${user.getLastName()}">Last name</td>
-                <td th:text="${user.getEmail()}">Email</td>
-                <td th:text="${user.getAge()}">Age</td>
-                <td>
-                    <form th:method="DELETE" th:action="@{/hr/edit/delete/{id}(id=${user.getId()})}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-                <td><a th:href="@{/hr/edit/{id}(id=${user.getId()})}" class="btn btn-primary">Edit</a></td>
-                <td><a th:href="@{/hr/payroll/{id}(id=${user.getId()})}" class="btn btn-primary">Award</a></td>
-            </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getUsername()}">Username</td>
+            <td th:text="${user.getFirstName()}">First name</td>
+            <td th:text="${user.getLastName()}">Last name</td>
+            <td th:text="${user.getEmail()}">Email</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td>
+                <form th:method="DELETE" th:action="@{/hr/edit/delete/{id}(id=${user.getId()})}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+            <td><a th:href="@{/hr/edit/{id}(id=${user.getId()})}" class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/hr/payroll/{id}(id=${user.getId()})}" class="btn btn-primary">Award</a></td>
+        </tr>
         </tbody>
     </table>
+
+</div>
 
     <script>
         $(document).ready(function(){
@@ -64,6 +95,5 @@
         });
     </script>
 
-</div>
 </body>
 </html>
