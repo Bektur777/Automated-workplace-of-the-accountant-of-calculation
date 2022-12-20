@@ -4,7 +4,6 @@ import org.example.dao.HRDao;
 import org.example.model.Payroll;
 import org.example.model.User;
 import org.example.model.Vacation;
-import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
