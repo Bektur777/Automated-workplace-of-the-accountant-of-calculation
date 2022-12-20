@@ -19,7 +19,7 @@ public class AccountantController {
 
     @GetMapping("/position")
     public String positionSalary(Model model) {
-        model.addAttribute("salaries", accountantDAO.getPositionSalary());
+        model.addAttribute("salary", accountantDAO.getPositionSalary());
         return "accountant/position_salary";
     }
 

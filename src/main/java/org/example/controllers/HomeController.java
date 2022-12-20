@@ -29,7 +29,8 @@ public class HomeController {
     }
 
     @GetMapping("/accountant")
-    public String accountant() {
+    public String accountant(Model model) {
+        model.addAttribute("user", userRepository.getUser());
         return "accountant/accountant_page";
     }
 
